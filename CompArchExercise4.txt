@@ -1,0 +1,81 @@
+	.data
+
+intarray: .word 0:20 								
+sum: .word 0 									
+str: .asciiz "Give me the first term of the arithmetic sequence."		
+str1: .asciiz "Give me the step of the arithmetic sequence."			
+str2: .asciiz "The terms of the arithmetic sequence from finish to start are: "	
+str3: .asciiz "\nThe sum of the terms of the arithmetic sequence is: "		
+
+	.text
+
+main:
+	
+	la $a0, str 	
+	li $v0, 4    	
+	syscall		
+
+	li $v0, 5       
+	syscall         
+	move $t0, $v0   
+
+	la $a0, str1 	
+	li $v0, 4    	
+	syscall		
+
+	li $v0, 5       
+	syscall         
+	move $t1, $v0   
+
+	li $t2, 0	
+	li $t3, 20	
+	li $t4, 0	
+
+CalcLoop:
+	
+	sw $t0, intarray + 0($t4)	
+
+	add $t0, $t0, $t1		
+
+	addi $t4, $t4, 4		
+
+	sub $t3, $t3, 1			
+
+	bgt $t3, $zero, CalcLoop	
+
+	la $a0, str2 	
+	li $v0, 4    	
+	syscall		
+
+PrintSum:
+	
+	sub $t4, $t4, 4			
+
+	lw $t0, intarray + 0($t4)	
+
+	add $t2, $t2, $t0		
+
+	li $v0, 1	
+	move $a0, $t0		
+	syscall		
+
+	la $a0, ' '	
+	li $v0, 11	
+	syscall		
+
+	bgt $t4, $zero, PrintSum	
+
+	la $a0, str3 	
+	li $v0, 4    	
+	syscall		
+
+	sw $t2, sum	
+	lw $a0, sum	
+	li $v0, 1	
+	syscall		
+
+	li $v0, 10	
+	syscall		
+	
+
+	 	 

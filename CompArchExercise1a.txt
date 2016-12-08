@@ -1,0 +1,15 @@
+	.data
+
+str:  .asciiz "Hello\nWorld\n"
+str1:  .asciiz "Welcome to\nMIPS Assembly\n"
+
+	.text
+main:
+	la $a0, str 
+	syscall	
+	
+	la $a0, str1 
+	syscall	
+
+	li $v0,10 
+	syscall 
