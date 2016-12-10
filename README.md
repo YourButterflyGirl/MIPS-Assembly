@@ -14,3 +14,6 @@ Exercise 4: Calculates and stores in a table, the 20 first terms of an arithmeti
 Exercise 5: Sort 10 integers using the bubble sort algorithm, and then prints them
 
 Exercise 6: Calculates the moving averages of 10 temperatures and prints them(the numbers are all integers)
+
+
+Disclaimer: Each exercise is uploaded after the deadline they give us to upload it on our e-class, so I can avoid someone searching on GitHub finding mine and handing the same assignment.
