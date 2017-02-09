@@ -1,0 +1,114 @@
+	.data
+
+intarray: .word 0:10			
+str: .asciiz "Give integer "		
+str1: .asciiz "Unsorted array: "	
+str2: .asciiz "\nSorted array: "	
+
+	.text
+
+main:
+
+	li $t0, 1		
+	li $t1, 1		
+	la $t2, intarray	
+
+insertint:
+	
+
+	li $v0, 4	
+	la $a0, str	
+	syscall		
+
+	li $v0, 1	
+	move $a0, $t0	
+	syscall		
+
+	addi $t0, $t0, 1	
+
+	li $v0, 11	
+	la $a0, ':'	
+	syscall		
+
+	li $v0, 5	
+	syscall			
+	sw $v0, ($t2)	
+
+	addi $t2, $t2, 4		
+
+	addi $t1, $t1, 1		
+
+	blt $t1, 11, insertint	
+
+	li $v0, 4	
+	la $a0, str1	
+	syscall		
+
+	li $t1, 1		
+	la $t2, intarray	
+
+printarray:
+
+	li $v0, 1	
+	lw $a0, ($t2)	
+	syscall		
+
+	la $a0, ' '	
+	li $v0, 11	
+	syscall		
+
+	addi $t1, $t1, 1	
+	addi $t2, $t2, 4	
+
+	blt $t1, 11, printarray	
+
+	beq $t4, 1, exit	
+
+	li $t7, 0		
+
+bubblesort:
+
+	la $t2, intarray	
+	li $t6, 0		
+
+bubblesortpass:
+
+	lw $t3, ($t2)		
+	addi $t2, $t2, 4	
+	lw $t1, ($t2)				
+
+	addi $t6, $t6, 1	
+
+	bge $t3, $t1, swap	
+
+check:
+
+	ble $t6, 10, bubblesortpass	  
+	
+	addi $t7, $t7, 1		
+
+	blt $t7, 10, bubblesort		 
+
+	li $t4, 1		
+	li $t1, 1		
+	la $t2, intarray	
+
+	li $v0, 4	
+	la $a0, str2	
+	syscall			
+
+	j printarray	
+
+swap:
+
+	sw $t3, ($t2) 	
+	sub $t2, $t2, 4	
+	sw $t1, ($t2) 	
+
+	j check	 
+
+exit: 
+
+	li $v0, 10	
+	syscall			
+	
